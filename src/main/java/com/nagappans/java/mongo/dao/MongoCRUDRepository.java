@@ -94,6 +94,11 @@ public class MongoCRUDRepository {
 
     public static void main(String args[]) {
         MongoCRUDRepository mongoCRUDRepository = new MongoCRUDRepository();
+        //Below are different CRUD operations methods available which can be uncommented and tried out for understading.
+        //mongoCRUDRepository.readDocument();
+        //mongoCRUDRepository.createDocument();
+        //mongoCRUDRepository.updateDocument();
+        //mongoCRUDRepository.deleteDocument();
         mongoCRUDRepository.customizedQuery();
     }
 }
