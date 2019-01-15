@@ -5,6 +5,7 @@ import com.mongodb.Block;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.internal.MongoClientImpl;
@@ -32,7 +33,9 @@ public class MongoCRUDRepository {
                                 .applyConnectionString(new ConnectionString(connectionSting))
                                 .codecRegistry(getPojoCodecRegistry())
                                 .build();
-        MongoClient mongoClient = new MongoClientImpl(mongoClientSettings, null);
+        MongoClient mongoClient = MongoClients.create(mongoClientSettings);
+        //one more options of directly instantiating it
+        //MongoClient mongoClient = new MongoClientImpl(mongoClientSettings, null);
 
         MongoDatabase mongoDatabase = mongoClient.getDatabase(dbname);
         //return mongoDatabase.getCollection("customer");
