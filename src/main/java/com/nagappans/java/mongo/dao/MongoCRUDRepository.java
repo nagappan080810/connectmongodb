@@ -1,9 +1,6 @@
 package com.nagappans.java.mongo.dao;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.Block;
-import com.mongodb.ConnectionString;
-import com.mongodb.MongoClientSettings;
+import com.mongodb.*;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -31,6 +28,7 @@ public class MongoCRUDRepository {
         String connectionSting = String.format("mongodb://%s:%d",hostname, port);
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
                                 .applyConnectionString(new ConnectionString(connectionSting))
+                                .credential(getMongoCredential(dbname))
                                 .codecRegistry(getPojoCodecRegistry())
                                 .build();
         MongoClient mongoClient = MongoClients.create(mongoClientSettings);
@@ -40,6 +38,10 @@ public class MongoCRUDRepository {
         MongoDatabase mongoDatabase = mongoClient.getDatabase(dbname);
         //return mongoDatabase.getCollection("customer");
         return mongoDatabase.getCollection("customer", Customer.class);
+    }
+
+    private MongoCredential getMongoCredential(String dbname) {
+        return MongoCredential.createCredential("nagappans", dbname, "abc123".toCharArray());
     }
 
     private CodecRegistry getPojoCodecRegistry() {
